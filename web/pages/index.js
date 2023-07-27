@@ -63,18 +63,10 @@ export default function Home() {
               <div className="text_data">
                 Placa: {vehicle.account.imgUrl}
               </div>
-            </div>
-          ))}
-          {vehicles_up.map((vehicle, i) => (
-            <div key={i} className="border shadow rounded-xl overflow-hidden">
               <div className="text_data">
                 Dueño:<br></br>
                 {vehicle.account.owner.toString()}
               </div>
-            </div>
-          ))}
-          {vehicles_up.map((vehicle, i) => (
-            <div key={i} className="border shadow rounded-xl overflow-hidden">
               <img key={vehicle.account.imgUrl} src={`imgs/${vehicle.account.imgUrl}.jpg`} alt={vehicle.account.imgUrl} />
             </div>
           ))}
