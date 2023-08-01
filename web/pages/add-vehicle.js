@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IDL } from "../public/solana_transito";
-import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import { Connection, PublicKey, clusterApiUrl, Keypair } from "@solana/web3.js";
 import { Program, Provider, web3 } from "@project-serum/anchor";
 import { useRouter } from "next/router";
 
@@ -55,18 +55,20 @@ export default function AddVehicle() {
         program.programId
       );
       console.log("pda:", pda);
+      let signer_key = provider.wallet.publicKey //Keypair.generate();
+      
+      console.log("signer_key:", signer_key);
 
-      let tx = await program.rpc
-        .initialize(
-            inputVehicleValue, 
-            {
-                accounts: {
-                    vehicleData: pda,
-                    user: provider.wallet.publicKey,
-                    systemProgram: SystemProgram.programId,
-                },
-            }
-        );
+      let tx = await program.rpc.initialize(
+        inputVehicleValue, 
+        {
+          accounts: {
+            vehicleData: pda,
+            user: signer_key,
+            systemProgram: SystemProgram.programId,
+          },
+        }
+      );
 
       console.log("tx:", tx);
 
